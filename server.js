@@ -20,10 +20,9 @@ const myIces = [
      })
     
      app.get('/users/:name',function(req,res){
-          var whatever = req.params.name;
           var iceCream = myIces.filter(function (e) {
-               console.log(whatever);
-               return e.name === whatever;
+               console.log(req.params.name);
+               return e.name === req.params.name;
                
              });
                res.json({
@@ -53,6 +52,47 @@ const myIces = [
 	}
      });
           
+     
+     app.put('/users/:name',function(req,res){
+
+          
+          
+          const found = myIces.find(e => e.name === req.params.name);
+          console.log(found);
+          const index = myIces.indexOf(found);
+          const body = req.body;
+ 
+          if (!found) {
+               res.json({
+                    success: true,
+                    message: 'Icecream not found!'
+                })
+           }   else {
+                    const updatedIcecream = { ...found, ...body };
+                    myIces[index] = updatedIcecream;
+                res.json({
+                    success: false,
+                    message: 'Your icecream has been updated!'
+                })
+           }
+           });
+     
+           app.delete('/users/:name',function(req,res){
+               var iceCream = myIces.filter(function (e) {
+                    console.log(req.params.name);
+                    return e.name !== req.params.name;
+                    
+                  });
+                    res.json({
+                    success: true,
+                    message: 'This icecream has been deleted!',
+                    user: iceCream
+               })
+          })
+     
+     
+
+
 
  
 app.listen(8007,function(){
