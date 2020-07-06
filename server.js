@@ -84,7 +84,7 @@ const myIces = [
                if(!iceCream) {
                     res.json({
                          success: true,
-                         message: 'This icecream is not in strook!'
+                         message: 'This icecream is not in stock!'
 
                     })
                } else {
