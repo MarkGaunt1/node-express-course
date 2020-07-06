@@ -78,17 +78,25 @@ const myIces = [
            });
      
            app.delete('/users/:name',function(req,res){
-               var iceCream = myIces.filter(function (e) {
-                    console.log(req.params.name);
-                    return e.name !== req.params.name;
+               const iceCream = myIces.find(e => e.name === req.params.name);
+               const delIndex = myIces.indexOf(iceCream);
                     
-                  });
+               if(!iceCream) {
                     res.json({
-                    success: true,
-                    message: 'This icecream has been deleted!',
-                    user: iceCream
+                         success: true,
+                         message: 'This icecream is not in strook!'
+
+                    })
+               } else {
+                    myIces.splice(delIndex, 1);
+                
+                    res.json({
+                    success: false,
+                    message: 'This icecream has been deleted!'
+                    
                })
-          })
+          }
+     });
      
      
 
